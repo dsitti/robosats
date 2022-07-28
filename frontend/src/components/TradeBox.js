@@ -26,7 +26,8 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { NewTabIcon } from "./Icons";
+import { NewTabIcon} from "./Icons";
+import Flowchart from "./Flowchart";
 
 import { getCookie } from "../utils/cookies";
 import { pn } from "../utils/prettyNumbers";
@@ -98,6 +99,26 @@ class TradeBox extends Component {
     }else{
       return ''
     }
+  }
+
+  showFlowchart=()=>{
+    const {t} = this.props
+    return (
+        <Grid item xs={12} align="center">
+          <Typography color="primary" variant="subtitle1" align="center">
+            <div style={{display:'flex', alignItems:'center', justifyContent:'center', flexWrap:'wrap'}}>
+              
+              { t("Step: 4")}
+            </div>
+            
+          
+          </Typography>
+          <Grid container direction="row" justifyContent={"space-between"} textAlign={"center"} >
+          
+              <Flowchart totalSteps={5} currentStep={3}/>
+          </Grid>
+        </Grid>
+    );
   }
 
   handleClickOpenConfirmDispute = () => {
@@ -1440,6 +1461,7 @@ handleRatingRobosatsChange=(e)=>{
       <Grid container spacing={1} style={{ width:this.props.width}}>
         {this.ConfirmDisputeDialog()}
         {this.ConfirmFiatReceivedDialog()}
+        
         <Grid item xs={12} align="center">
           <MediaQuery minWidth={920}>
             <Typography component="h5" variant="h5">
@@ -1447,6 +1469,8 @@ handleRatingRobosatsChange=(e)=>{
             </Typography>
           </MediaQuery>
           <Paper elevation={12} style={{ padding: 8,}}>
+            {/* Flowchart */}
+            {this.showFlowchart()}
             {/* Maker and taker Bond request */}
               {this.props.data.is_maker & this.props.data.status == 0 ? this.showQRInvoice() : ""}
               {this.props.data.is_taker & this.props.data.status == 3 ? this.showQRInvoice() : ""}
